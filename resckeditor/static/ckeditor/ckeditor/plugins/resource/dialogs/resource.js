@@ -69,7 +69,7 @@ var ResourcesPlugin = function () {
 }
 
 CKEDITOR.dialog.add('resourceDialog', function (editor) {
-    var resourcesPlugin;
+    var resourcesPlugin = new ResourcesPlugin();
     var json = CKEDITOR.ajax.load('/resckeditor/');
     var arr = JSON.parse(json).apps;
     var apps = []
@@ -91,8 +91,8 @@ CKEDITOR.dialog.add('resourceDialog', function (editor) {
                         label: 'Select application',
                         items: apps,
                         onChange: function( api ) {
-                            resourcesPlugin = new ResourcesPlugin()
-                            var dialog = this.getDialog()
+                            resourcesPlugin = new ResourcesPlugin();
+                            var dialog = this.getDialog();
                             var select2 = dialog.getContentElement('tab-main', 'resource-id').getInputElement().$;
                             var selected = this.getValue();
                             CKEDITOR.ajax.load('/resckeditor/?app=' + selected, function (json) {
