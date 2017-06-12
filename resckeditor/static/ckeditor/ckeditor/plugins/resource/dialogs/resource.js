@@ -59,7 +59,7 @@ var ResourcesPlugin = function () {
         for (var i = 0, len = this.options.length; i < len; i++) {
             var opt = this.options[i];
             param[opt.name] = opt.type === 'checkbox'
-                ? opt.input.attr('checked')
+                ? opt.input.is(":checked")
                 : opt.input.val();
         }
         return JSON.stringify(param);
