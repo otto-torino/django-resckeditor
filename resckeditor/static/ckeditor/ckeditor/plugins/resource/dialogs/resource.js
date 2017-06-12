@@ -15,9 +15,9 @@ var ResourcesPlugin = function () {
             'class': 'cke_dialog_ui_labeled_label',
             'style': 'display: block;'
         }).text(option.label)
-        if (option.type === 'text') {
+        if (option.type === 'text' || option.type === 'number') {
             var input = this.$('<input />', {
-                type: 'text',
+                type: option.type,
                 'class': 'cke_dialog_ui_input_text',
                 name: option.name
             }).val(option.default)

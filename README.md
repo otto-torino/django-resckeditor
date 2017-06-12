@@ -75,7 +75,7 @@ this function should return  a dictionary with the allowed resources (id and lab
                     'default': True
                 },
                 {
-                    'type': 'text',
+                    'type': 'number',
                     'name': 'media-gallery-dialog-options-num-images',
                     'label': 'Images number',
                     'default': 4
@@ -105,5 +105,5 @@ this function should return the output of the given resource identified by its i
 
 ## Supported options
 
-Currently only 3 types of options are supported: checkbox, text and select, but should be sufficient for almost all use cases.
-The syntax and required properties are the one you may se in the example above.
+Currently only 4 types of options are supported: checkbox, text, number and select, but should be sufficient for almost all use cases.
+The syntax and required properties are the one you may se in the example above (text has the same props as number).
