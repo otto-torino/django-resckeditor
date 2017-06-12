@@ -2,7 +2,7 @@
 
 This is a django app which provides and infrastructure you can use to include custom contents of other apps directly inside ckeditor.
 
-It requires [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor) or a similar ckeditor app, and is implemented for CKEDITOR v >= 4.x.
+It requires [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor) or a similar ckeditor app, and is implemented for CKEDITOR 4.x.
 
 It defines a custom CKEDITOR plugin which implements two dialog tabs: the first to select the resource (app and view), and the second to dynamically set options.
 
