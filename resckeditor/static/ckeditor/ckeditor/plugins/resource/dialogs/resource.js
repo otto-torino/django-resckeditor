@@ -7,7 +7,7 @@ var ResourcesPlugin = function () {
     }
 
     this.reset = function () {
-        this.optionsContainer.empty().text('Seleziona un\'applicazione e una risorsa');
+        this.optionsContainer.empty().text('Select application and resource');
     }
 
     this.addOption = function (option) {
@@ -77,18 +77,18 @@ CKEDITOR.dialog.add('resourceDialog', function (editor) {
         apps.push([arr[i].label, arr[i].name]);
     }
     return {
-        title: 'Aggiungi risorsa',
+        title: 'Add resource',
         minWidth: 400,
         minHeight: 200,
         contents: [
             {
                 id: 'tab-main',
-                label: 'Ricerca risorsa',
+                label: 'Search resource',
                 elements: [
                     {
                         type: 'select',
                         id: 'resource-app',
-                        label: 'Seleziona l\'applicazione',
+                        label: 'Select application',
                         items: apps,
                         onChange: function( api ) {
                             resourcesPlugin = new ResourcesPlugin()
@@ -117,18 +117,18 @@ CKEDITOR.dialog.add('resourceDialog', function (editor) {
                     {
                         type: 'select',
                         id: 'resource-id',
-                        label: 'Seleziona la risorsa',
+                        label: 'Select resource',
                         items: [['--seleziona l\'applicazione--']],
                     }
                 ]
             },
             {
                  id : 'tab-options',
-                 label : 'Opzioni',
+                 label : 'Options',
                  elements : [
                       {
                          type : 'html',
-                         html : '<div class="resources-dialog-options">Seleziona un\'applicazione e una risorsa</div>',
+                         html : '<div class="resources-dialog-options">Select application and resource</div>',
                       },
                    ]
               }

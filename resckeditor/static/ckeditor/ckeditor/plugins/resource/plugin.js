@@ -3,7 +3,7 @@ CKEDITOR.plugins.add('resource', {
     init: function (editor) {
         editor.addCommand('resource', new CKEDITOR.dialogCommand('resourceDialog'));
         editor.ui.addButton('Res', {
-            label: 'Inserisci risorsa',
+            label: 'Resource',
             command: 'resource',
             toolbar: 'insert'
         });
