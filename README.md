@@ -1,6 +1,6 @@
 # django-resckeditor
 
-This is a djaingo app which provides and infrastructure you can use to serve custom contents of other apps directly inside ckeditor.
+This is a django app which provides and infrastructure you can use to include custom contents of other apps directly inside ckeditor.
 
 It requires [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor) or a similar ckeditor app, and is implemented for CKEDITOR v >= 4.x.
 
