@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+docs/_build
+docs/_static
+docs/_templates
+build/
+dist/
+django_resckeditor.egg-info/
