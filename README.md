@@ -99,7 +99,7 @@ this function should return  a dictionary with the allowed resources (id and lab
 
 this function should return the output of the given resource identified by its id, ie:
 
-    def ckeditor_resource_html(id):
+    def ckeditor_resource_html(id, options):
         g = Gallery.objects.get(pk=id)
         return mark_safe(g.name)
 
