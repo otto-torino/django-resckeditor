@@ -36,6 +36,22 @@ Define which applications export resources for ckeditor, so for example in your 
         ]
     }
 
+Add the resource and ajax plugins to your ckeditor instance:
+
+    CKEDITOR_CONFIGS = {
+        'default': {
+            'skin': 'moono',
+            'toolbar_Full': [
+                    // ..
+                    ['Res'/*, ...*/],
+                    // ..
+            ],
+            'toolbar': 'Full',
+            // ...
+            'extraPlugins': 'ajax,resource',
+        }
+    }
+
 Then every application which exports resources must have a __ckeditor.py__ module and define two functions:
 
 **ckeditor_resources**
