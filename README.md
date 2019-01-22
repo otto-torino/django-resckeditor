@@ -2,9 +2,9 @@
 
 This is a django app which provides and infrastructure you can use to include custom contents of other apps directly inside ckeditor.
 
-It requires [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor) or a similar ckeditor app, and is implemented for CKEDITOR 4.x.
+It requires [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor)
 
-It defines a custom CKEDITOR plugin which implements two dialog tabs: the first to select the resource (app and view), and the second to dynamically set options.
+It defines a custom CKEDITOR plugin which implements two dialog tabs: the first to select the resource, and the second to dynamically set options.
 
 ## Getting Started
 
@@ -22,19 +22,10 @@ add the urls in your core application:
 
     urlpatterns = [
         # ...
-        url(r'^resckeditor/', include('baton.urls')),
+        url(r'^resckeditor/', include('resckeditor.urls', namespace='resckeditor')),
     ]
 
 **N.B.** do not change the **resckeditor** path, since it is hardcoded in the js code.
-
-Define which applications export resources for ckeditor, so for example in your settings:
-
-    RESCKEDITOR_CONFIG = {
-        'APPS': [
-            {'name': 'my-app', 'label': 'My Application'},
-            {'name': 'news', 'label': 'News'},
-        ]
-    }
 
 Add the resource and ajax plugins to your ckeditor instance:
 
@@ -52,37 +43,53 @@ Add the resource and ajax plugins to your ckeditor instance:
         }
     }
 
-Then every application which exports resources must have a __ckeditor.py__ module and define two functions:
+Define functions export resources for ckeditor, so for example in your settings:
 
-**ckeditor_resources**
+    RESCKEDITOR_CONFIG = {
+        'RESOURCES': [
+            {
+                'list': 'path.to.module.func.defining.resources',
+                'output': 'path.to.module.func.returning.html',
+                'label': 'My group of widgets'
+            },
+        ]
+    }
 
-this function should return  a dictionary with the allowed resources (id and label), and a list of options objects, i.e:
 
-    def ckeditor_resources():
+The `list` function is invoked without arguments and should return a dictionary defining all the available resources
+(i.e. all the news we want to export) and the available options:
+
+    def my_list_function():
         res = []
-        for g in Gallery.objects.published():
+        for n in News.objects.published():
             res.append({
-                'label': g.name,
-                'id': g.id
+                'label': n.title,
+                'id': n.id
             })
         return {
             'resources': res,
             'options': [
                 {
+                    'type': 'text',
+                    'name': 'news-dialog-options-section-title',
+                    'label': 'Last News',
+                    'default': ''
+                },
+                {
                     'type': 'checkbox',
-                    'name': 'media-gallery-dialog-options-show-title',
+                    'name': 'news-dialog-options-show-title',
                     'label': 'Show title',
                     'default': True
                 },
                 {
                     'type': 'number',
-                    'name': 'media-gallery-dialog-options-num-images',
-                    'label': 'Images number',
-                    'default': 4
+                    'name': 'news-dialog-options-num-chars',
+                    'label': 'Number of chars',
+                    'default': 50
                 },
                 {
                     'type': 'select',
-                    'name': 'media-gallery-dialog-options-layout',
+                    'name': 'news-dialog-options-layout',
                     'label': 'Layout',
                     'data': [
                         {'label': 'one row', 'value': 'row'},
@@ -95,13 +102,12 @@ this function should return  a dictionary with the allowed resources (id and lab
 
         }
 
-**ckeditor_resource_html(id, options)**
+The `output` function will receive the id of the resource selected and a dictionary containing the provided options.
+It should return the html output of the resource.
 
-this function should return the output of the given resource identified by its id, eventually using the options values, ie:
-
-    def ckeditor_resource_html(id, options):
-        g = Gallery.objects.get(pk=id)
-        return g.name
+    def my_output_function(id, options):
+        n = News.objects.get(pk=id)
+        return '<h1>%s</h1>' % n.title
 
 ## Supported options
 

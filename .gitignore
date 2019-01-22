@@ -6,3 +6,4 @@ docs/_templates
 build/
 dist/
 django_resckeditor.egg-info/
+tags

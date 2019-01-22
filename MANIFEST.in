@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include resckeditor/static *
+recursive-include resckeditor/locale *

@@ -1,3 +1,10 @@
+// django translations
+if (!gettext) {
+    var gettext = function (string) {
+        return string;
+    }
+}
+
 var ResourcesPlugin = function () {
     this.init = function () {
         this.$ = django.jQuery;
@@ -7,7 +14,7 @@ var ResourcesPlugin = function () {
     }
 
     this.reset = function () {
-        this.optionsContainer.empty().text('Select application and resource');
+        this.optionsContainer.empty().text(gettext('Select application and resource'));
     }
 
     this.addOption = function (option) {
@@ -71,31 +78,31 @@ var ResourcesPlugin = function () {
 CKEDITOR.dialog.add('resourceDialog', function (editor) {
     var resourcesPlugin = new ResourcesPlugin();
     var json = CKEDITOR.ajax.load('/resckeditor/');
-    var arr = JSON.parse(json).apps;
-    var apps = []
+    var arr = JSON.parse(json).resources;
+    var resources = []
     for (var i = 0, len = arr.length; i < len; i++) {
-        apps.push([arr[i].label, arr[i].name]);
+        resources.push([arr[i].label, arr[i].list + '$' + arr[i].output]);
     }
     return {
-        title: 'Add resource',
+        title: gettext('Add resource'),
         minWidth: 400,
         minHeight: 200,
         contents: [
             {
                 id: 'tab-main',
-                label: 'Search resource',
+                label: gettext('Search resource'),
                 elements: [
                     {
                         type: 'select',
-                        id: 'resource-app',
-                        label: 'Select application',
-                        items: apps,
+                        id: 'resource',
+                        label: gettext('Select application'),
+                        items: resources,
                         onChange: function( api ) {
                             resourcesPlugin = new ResourcesPlugin();
                             var dialog = this.getDialog();
                             var select2 = dialog.getContentElement('tab-main', 'resource-id').getInputElement().$;
-                            var selected = this.getValue();
-                            CKEDITOR.ajax.load('/resckeditor/?app=' + selected, function (json) {
+                            var selected = this.getValue().split('$')[0];
+                            CKEDITOR.ajax.load('/resckeditor/?res=' + selected, function (json) {
                                 // resources
                                 var arr = JSON.parse(json).res;
                                 var res = [];
@@ -117,8 +124,8 @@ CKEDITOR.dialog.add('resourceDialog', function (editor) {
                     {
                         type: 'select',
                         id: 'resource-id',
-                        label: 'Select resource',
-                        items: [['--seleziona l\'applicazione--']],
+                        label: gettext('Select resource'),
+                        items: [[gettext('--select the application--')]],
                     }
                 ]
             },
@@ -128,18 +135,17 @@ CKEDITOR.dialog.add('resourceDialog', function (editor) {
                  elements : [
                       {
                          type : 'html',
-                         html : '<div class="resources-dialog-options">Select application and resource</div>',
+                         html : '<div class="resources-dialog-options">' + gettext('Select application and resource') + '</div>',
                       },
                    ]
               }
         ],
         onOk: function () {
             var dialog = this;
-
-            var app = dialog.getValueOf('tab-main', 'resource-app');
+            var res = dialog.getValueOf('tab-main', 'resource').split('$')[1];
             var id = dialog.getValueOf('tab-main', 'resource-id');
             var optionsParam = resourcesPlugin.getUrlParam();
-            var html = CKEDITOR.ajax.load('/resckeditor/html/?app=' + app + '&id=' + id + '&opt=' + encodeURIComponent(optionsParam));
+            var html = CKEDITOR.ajax.load('/resckeditor/output/?res=' + res + '&id=' + id + '&opt=' + encodeURIComponent(optionsParam));
             editor.insertHtml(html);
             resourcesPlugin.reset();
         },

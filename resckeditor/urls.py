@@ -1,7 +1,8 @@
 from django.conf.urls import url
-from .views import resource_ckeditor, resource_ckeditor_html
+from .views import resources, resource_output
 
+app_name = 'resckeditor'
 urlpatterns = [
-    url(r'^$', resource_ckeditor, name='resckeditor-dialog-data'),
-    url(r'^html/$', resource_ckeditor_html, name='resckeditor-html'),
+    url(r'^$', resources, name='dialog-data'),
+    url(r'^output/$', resource_output, name='output'),
 ]
