@@ -6,7 +6,16 @@ It requires [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor
 
 It defines a custom CKEDITOR plugin which implements two dialog tabs: the first to select the resource, and the second to dynamically set options.
 
+**Full documentation**: [https://django-resckeditor.readthedocs.io/en/latest/](https://django-resckeditor.readthedocs.io/en/latest/)
+
+![Screenshot](docs/images/list.png)
+![Screenshot](docs/images/options.png)
+
 ## Getting Started
+
+Install django-resckeditor:
+
+    $ pip install django-resckeditor
 
 Add resckeditor to your installed apps:
 
