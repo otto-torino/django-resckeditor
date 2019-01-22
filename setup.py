@@ -36,6 +36,6 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.5',
         'Topic :: Software Development',
-        'Topic :: Software Development :: Content Management',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ]
 )
